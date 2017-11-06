@@ -10,7 +10,6 @@ mainfunction();
         var countryData = JSON.parse(data);
         //get maxIndex from data array
         var maxIndex = countryData.length;
-        console.log(maxIndex);
         //generate random number between 1 and maxIndex
         var ranNum = Math.floor((Math.random() * maxIndex) + 1);
         //get info on random country
@@ -25,14 +24,15 @@ mainfunction();
                 var capitalData = JSON.parse(data2);
                 var capital = capitalData.Name;
 
-                //get other cities
+                //get other cities and ignore capital
                 $.get(cityURL, function(data3){
                     cityData = JSON.parse(data3);
                     var citiesArray = [];
                     for (var i = 0; i < cityData.length; i++) {
                         if (cityData[i].CountryCode == countryData[ranNum].Code){
-                        console.log(cityData[i].Name);
-                        citiesArray.push(cityData[i].Name);
+                            if(cityData[i].ID != capitalNum){
+                                citiesArray.push(cityData[i].Name);
+                            }
                         }
                     }
 
